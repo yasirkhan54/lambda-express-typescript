@@ -1,0 +1,14 @@
+version: '3.8'
+
+services:
+  PostgreSQL:
+    image: postgres
+    container_name: PostgreSQL 
+    restart: always
+    environment:
+      POSTGRES_DB: INVENTORY_MANAGEMENT
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - 4000:5432
+      
