@@ -12,16 +12,16 @@ export const SQL = postgres({
 })
 
 export const DATABASE_TABLES = {
-  Lead: 'leads',
-  LeadStatus: 'lead_status',
-  Session: 'sessions',
-  Consent: 'consents',
-  ThirdPartyToken: 'third_party_tokens',
-  UTM: 'utms',
-  Profile: 'profiles',
-  Qualification: 'qualifications',
-  Address: 'addresses',
-  ProfileCriteria: 'profile_criteria'
+  ADDRESSES: 'addresses',
+  CONSENTS: 'consents',
+  LEAD_STATUS: 'lead_status',
+  LEADS: 'leads',
+  PROFILE_CRITERIA: 'profile_criteria',
+  PROFILES: 'profiles',
+  QUALIFICATIONS: 'qualifications',
+  SESSIONS: 'sessions',
+  THIRD_PARTY_TOKENS: 'third_party_tokens',
+  UTMS: 'utms',
 }
 
 export const GET_RECORDS = async (table: string) => {
