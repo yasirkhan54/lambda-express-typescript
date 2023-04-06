@@ -1,0 +1,36 @@
+import createError from 'http-errors';
+import { SQL, DATABASE_TABLES, ERROR_MESSAGE } from '../shared'
+import { Session } from 'src/models'
+
+export const LIST_OF_SESSION = async () => {
+  const sessions = await SQL<Session[]>`SELECT * FROM ${DATABASE_TABLES.SESSIONS}` // Get all sessions
+  return sessions
+}
+export const GET_SESSION_BY_ID = async (id: string) => {
+  const sessions = await SQL<Session[]>`SELECT * FROM ${DATABASE_TABLES.SESSIONS} where session_id = ${id}` // Get session by id
+  if (sessions.length === 0) {
+    throw createError[404](ERROR_MESSAGE.RECORD_NOT_FOUND)
+  }
+  return sessions.at(0)
+}
+export const CREATE_SESSION = async (session: Session) => {
+  const sessions = await SQL<Session[]>`INSERT INTO ${DATABASE_TABLES.SESSIONS} VALUES ${SQL(session)} returning *` // Create session
+  if (sessions.length === 0) {
+    throw createError[500](ERROR_MESSAGE.RECORD_NOT_CREATED)
+  }
+  return sessions
+}
+export const EDIT_SESSION_BY_ID = async (id: string, session: Session) => {
+  const sessions = await SQL<Session[]>`UPDATE ${DATABASE_TABLES.SESSIONS} SET ${SQL(session)} where session_id = ${id} returning *` // Update session by id
+  if (sessions.length === 0) {
+    throw createError[404](ERROR_MESSAGE.RECORD_NOT_UPDATED)
+  }
+  return sessions
+}
+export const DELETE_SESSION_BY_ID = async (id: string) => {
+  const sessions = await SQL<Session[]>`DELETE FROM ${DATABASE_TABLES.SESSIONS} where session_id = ${id} returning *` // Delete session by id
+  if (sessions.length === 0) {
+    throw createError[404](ERROR_MESSAGE.RECORD_NOT_DELETE)
+  }
+  return sessions
+}

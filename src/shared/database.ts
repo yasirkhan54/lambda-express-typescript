@@ -4,11 +4,11 @@ import createError from 'http-errors';
 import { ERROR_MESSAGE } from '../shared'
 
 export const SQL = postgres({
-  host: 'localhost',                           // Postgres ip address[s] or domain name[s]
-  port: 4000,                                  // Postgres server port[s]
-  database: 'INVENTORY_MANAGEMENT',            // Name of database to connect to
-  username: 'postgres',                        // Username of database user
-  password: 'postgres',                        // Password of database user
+  host: 'localhost',                            // Postgres ip address[s] or domain name[s]
+  port: 5432,                                   // Postgres server port[s]
+  database: 'leads_backend_ed',                 // Name of database to connect to
+  username: 'postgres',                         // Username of database user
+  password: 'postgres',                         // Password of database user
 })
 
 export const DATABASE_TABLES = {
