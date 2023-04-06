@@ -21,7 +21,7 @@ export const GET_LEAD_BY_ID = async (id: string) => {
 }
 
 export const CREATE_LEAD = async (lead: Lead) => { 
-  const leads = await SQL<Lead[]>`INSERT INTO ${SQL(DATABASE_TABLES.LEADS)} VALUES ${SQL(lead)} returning *` // Create lead
+  const leads = await SQL<Lead[]>`INSERT INTO ${SQL(DATABASE_TABLES.LEADS)} (external_lead_id, traffic_source, lead_cost, total_revenue, is_test_lead) VALUES ${SQL(lead)} returning *` // Create lead
   if (leads.length === 0) {
     throw createError[500](ERROR_MESSAGE.RECORD_NOT_CREATED)
   }
