@@ -12,8 +12,8 @@ const router: Router = Router()
 
 router.get('/', async (req: Request, res: Response, next: NextFunction) => {
     try {
-        const users = await LIST_OF_QUALIFICATION();
-        res.send({ users });
+        const Qualifications = await LIST_OF_QUALIFICATION();
+        res.send({ Qualifications });
     } catch (error) {
         // handle the error here
         next(error);
@@ -22,8 +22,8 @@ router.get('/', async (req: Request, res: Response, next: NextFunction) => {
 
 router.get('/:id', async (req: Request, res: Response, next: NextFunction) => {
     try {
-        const user = await GET_QUALIFICATION_BY_ID(req.params.id ? req.params.id : '0');
-        res.send(user);
+        const Qualification = await GET_QUALIFICATION_BY_ID(req.params.id ? req.params.id : '0');
+        res.send(Qualification);
     } catch (error) {
         // handle the error here
         next(error);
@@ -32,8 +32,8 @@ router.get('/:id', async (req: Request, res: Response, next: NextFunction) => {
 
 router.post('/', async (req: Request, res: Response, next: NextFunction) => {
     try {
-        const user = await CREATE_QUALIFICATION(req.body);
-        res.send(user);
+        const Qualification = await CREATE_QUALIFICATION(req.body);
+        res.send(Qualification);
     } catch (error) {
         // handle the error here
         next(error);
@@ -42,8 +42,8 @@ router.post('/', async (req: Request, res: Response, next: NextFunction) => {
 
 router.put('/:id', async (req: Request, res: Response, next: NextFunction) => {
     try {
-        const user = await EDIT_QUALIFICATION_BY_ID(req.params.id ? req.params.id : '0', req.body);
-        res.send(user);
+        const Qualification = await EDIT_QUALIFICATION_BY_ID(req.params.id ? req.params.id : '0', req.body);
+        res.send(Qualification);
     } catch (error) {
         // handle the error here
         next(error);
@@ -52,8 +52,8 @@ router.put('/:id', async (req: Request, res: Response, next: NextFunction) => {
 
 router.delete('/:id', async (req: Request, res: Response, next: NextFunction) => {
     try {
-        const user = await DELETE_QUALIFICATION_BY_ID(req.params.id ? req.params.id : '0');
-        res.send(user);
+        const Qualification = await DELETE_QUALIFICATION_BY_ID(req.params.id ? req.params.id : '0');
+        res.send(Qualification);
     } catch (error) {
         // handle the error here
         next(error);

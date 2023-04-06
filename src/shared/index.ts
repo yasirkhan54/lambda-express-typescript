@@ -1,2 +1,2 @@
 export { ERROR_MESSAGE } from './error-messages'
-// export { SQL, DATABASE_TABLES, GET_RECORDS, GET_RECORD_BY_ID, CREATE_RECORD, UPDATE_RECORD_BY_ID, DELETE_RECORD_BY_ID } from './database'
+export { SQL, DATABASE_TABLES } from './database'

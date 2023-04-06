@@ -12,8 +12,8 @@ const router: Router = Router()
 
 router.get('/', async (req: Request, res: Response, next: NextFunction) => {
     try {
-        const users = await LIST_OF_UTM();
-        res.send({ users });
+        const utms = await LIST_OF_UTM();
+        res.send({ utms });
     } catch (error) {
         // handle the error here
         next(error);
@@ -22,8 +22,8 @@ router.get('/', async (req: Request, res: Response, next: NextFunction) => {
 
 router.get('/:id', async (req: Request, res: Response, next: NextFunction) => {
     try {
-        const user = await GET_UTM_BY_ID(req.params.id ? req.params.id : '0');
-        res.send(user);
+        const utm = await GET_UTM_BY_ID(req.params.id ? req.params.id : '0');
+        res.send(utm);
     } catch (error) {
         // handle the error here
         next(error);
@@ -32,8 +32,8 @@ router.get('/:id', async (req: Request, res: Response, next: NextFunction) => {
 
 router.post('/', async (req: Request, res: Response, next: NextFunction) => {
     try {
-        const user = await CREATE_UTM(req.body);
-        res.send(user);
+        const utm = await CREATE_UTM(req.body);
+        res.send(utm);
     } catch (error) {
         // handle the error here
         next(error);
@@ -42,8 +42,8 @@ router.post('/', async (req: Request, res: Response, next: NextFunction) => {
 
 router.put('/:id', async (req: Request, res: Response, next: NextFunction) => {
     try {
-        const user = await EDIT_UTM_BY_ID(req.params.id ? req.params.id : '0', req.body);
-        res.send(user);
+        const utm = await EDIT_UTM_BY_ID(req.params.id ? req.params.id : '0', req.body);
+        res.send(utm);
     } catch (error) {
         // handle the error here
         next(error);
@@ -52,8 +52,8 @@ router.put('/:id', async (req: Request, res: Response, next: NextFunction) => {
 
 router.delete('/:id', async (req: Request, res: Response, next: NextFunction) => {
     try {
-        const user = await DELETE_UTM_BY_ID(req.params.id ? req.params.id : '0');
-        res.send(user);
+        const utm = await DELETE_UTM_BY_ID(req.params.id ? req.params.id : '0');
+        res.send(utm);
     } catch (error) {
         // handle the error here
         next(error);

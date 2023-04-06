@@ -12,8 +12,8 @@ const router: Router = Router()
 
 router.get('/', async (req: Request, res: Response, next: NextFunction) => {
     try {
-        const users = await LIST_OF_LEADSTATUS();
-        res.send({ users });
+        const leadStatuses = await LIST_OF_LEADSTATUS();
+        res.send({ leadStatuses });
     } catch (error) {
         // handle the error here
         next(error);
@@ -22,8 +22,8 @@ router.get('/', async (req: Request, res: Response, next: NextFunction) => {
 
 router.get('/:id', async (req: Request, res: Response, next: NextFunction) => {
     try {
-        const user = await GET_LEADSTATUS_BY_ID(req.params.id ? req.params.id : '0');
-        res.send(user);
+        const leadStatus = await GET_LEADSTATUS_BY_ID(req.params.id ? req.params.id : '0');
+        res.send(leadStatus);
     } catch (error) {
         // handle the error here
         next(error);
@@ -32,8 +32,8 @@ router.get('/:id', async (req: Request, res: Response, next: NextFunction) => {
 
 router.post('/', async (req: Request, res: Response, next: NextFunction) => {
     try {
-        const user = await CREATE_LEADSTATUS(req.body);
-        res.send(user);
+        const leadStatus = await CREATE_LEADSTATUS(req.body);
+        res.send(leadStatus);
     } catch (error) {
         // handle the error here
         next(error);
@@ -42,8 +42,8 @@ router.post('/', async (req: Request, res: Response, next: NextFunction) => {
 
 router.put('/:id', async (req: Request, res: Response, next: NextFunction) => {
     try {
-        const user = await EDIT_LEADSTATUS_BY_ID(req.params.id ? req.params.id : '0', req.body);
-        res.send(user);
+        const leadStatus = await EDIT_LEADSTATUS_BY_ID(req.params.id ? req.params.id : '0', req.body);
+        res.send(leadStatus);
     } catch (error) {
         // handle the error here
         next(error);
@@ -52,8 +52,8 @@ router.put('/:id', async (req: Request, res: Response, next: NextFunction) => {
 
 router.delete('/:id', async (req: Request, res: Response, next: NextFunction) => {
     try {
-        const user = await DELETE_LEADSTATUS_BY_ID(req.params.id ? req.params.id : '0');
-        res.send(user);
+        const leadStatus = await DELETE_LEADSTATUS_BY_ID(req.params.id ? req.params.id : '0');
+        res.send(leadStatus);
     } catch (error) {
         // handle the error here
         next(error);
