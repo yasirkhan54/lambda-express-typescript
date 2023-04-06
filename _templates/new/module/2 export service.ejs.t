@@ -4,4 +4,4 @@ to: src/services/index.ts
 append: true
 skip_if: './<%= name %>'
 ---
-export { GET_<%= name.toUpperCase() %>S, GET_<%= name.toUpperCase() %>_BY_ID, CREATE_<%= name.toUpperCase() %>_BY_ID, EDIT_<%= name.toUpperCase() %>_BY_ID, DELETE_<%= name.toUpperCase() %>_BY_ID } from './<%= name %>'
+export { LIST_OF_<%= name.toUpperCase() %>, GET_<%= name.toUpperCase() %>_BY_ID, CREATE_<%= name.toUpperCase() %>, EDIT_<%= name.toUpperCase() %>_BY_ID, DELETE_<%= name.toUpperCase() %>_BY_ID } from './<%= name %>'

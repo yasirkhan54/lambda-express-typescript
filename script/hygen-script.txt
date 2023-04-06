@@ -1,0 +1,10 @@
+hygen new module --name Address --path address --table addresses
+hygen new module --name Consent --path consent --table consents
+hygen new module --name Lead --path lead --table leads
+hygen new module --name LeadStatus --path lead-status --table lead_status
+hygen new module --name Profile --path profile --table profiles
+hygen new module --name ProfileCriteria --path profile-criteria --table profile_criteria
+hygen new module --name Qualification --path qualification --table qualifications
+hygen new module --name Session --path session --table sessions
+hygen new module --name ThirdPartyToken --path third-party-token --table third_party_tokens
+hygen new module --name UTM --path utm --table utms
