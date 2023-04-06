@@ -3,7 +3,6 @@ import { SQL, DATABASE_TABLES, ERROR_MESSAGE } from '../shared'
 import { Lead } from '../models'
 
 export const LIST_OF_LEAD = async () => { 
-  console.log('LIST_OF_LEAD')
   try {
     const leads = await SQL<Lead[]>`SELECT * FROM ${SQL(DATABASE_TABLES.LEADS)}` // Get all leads
     return leads
