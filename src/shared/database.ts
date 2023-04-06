@@ -12,6 +12,16 @@ export const SQL = postgres({
 })
 
 export const DATABASE_TABLES = {
+  Lead: 'leads',
+  LeadStatus: 'lead_status',
+  Session: 'sessions',
+  Consent: 'consents',
+  ThirdPartyToken: 'third_party_tokens',
+  UTM: 'utms',
+  Profile: 'profiles',
+  Qualification: 'qualifications',
+  Address: 'addresses',
+  ProfileCriteria: 'profile_criteria'
 }
 
 export const GET_RECORDS = async (table: string) => {
@@ -28,7 +38,7 @@ export const GET_RECORDS = async (table: string) => {
 
 export const GET_RECORD_BY_ID = async (table: string, id: string) => {
   try {
-    const RECORDS = await SQL`SELECT * FROM ${SQL(table)} where id = ${id}`.catch((e) => { throw createError[500](ERROR_MESSAGE.DATABASE_ERROR) })
+    const RECORDS = await SQL`SELECT * FROM ${SQL(table)} where ${table}_id = ${id}`.catch((e) => { throw createError[500](ERROR_MESSAGE.DATABASE_ERROR) })
     if (RECORDS.length === 0) {
       throw createError[404](ERROR_MESSAGE.RECORD_NOT_FOUND)
     }
@@ -52,7 +62,7 @@ export const CREATE_RECORD = async (table: string, values: object) => {
 
 export const UPDATE_RECORD_BY_ID = async (table: string, id: string, values: object) => {
   try {
-    const RECORDS = await SQL`UPDATE ${SQL(table)} SET ${SQL(values)} where id = ${id} returning *`.catch((e) => { throw createError[500](ERROR_MESSAGE.DATABASE_ERROR) })
+    const RECORDS = await SQL`UPDATE ${SQL(table)} SET ${SQL(values)} where ${table}_id = ${id} returning *`.catch((e) => { throw createError[500](ERROR_MESSAGE.DATABASE_ERROR) })
     if (RECORDS.length === 0) {
       throw createError[404](ERROR_MESSAGE.RECORD_NOT_UPDATED)
     }
@@ -64,7 +74,7 @@ export const UPDATE_RECORD_BY_ID = async (table: string, id: string, values: obj
 
 export const DELETE_RECORD_BY_ID = async (table: string, id: string) => {
   try {
-    const RECORDS = await SQL`DELETE FROM ${SQL(table)} where id = ${id} returning *`.catch((e) => { throw createError[500](ERROR_MESSAGE.DATABASE_ERROR) })
+    const RECORDS = await SQL`DELETE FROM ${SQL(table)} where ${table}_id = ${id} returning *`.catch((e) => { throw createError[500](ERROR_MESSAGE.DATABASE_ERROR) })
     if (RECORDS.length === 0) {
       throw createError[404](ERROR_MESSAGE.RECORD_NOT_DELETE)
     }

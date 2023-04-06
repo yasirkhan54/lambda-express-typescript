@@ -1,0 +1,8 @@
+import { ThirdPartyToken } from 'src/models'
+import { DATABASE_TABLES, GET_RECORDS, GET_RECORD_BY_ID, CREATE_RECORD, UPDATE_RECORD_BY_ID, DELETE_RECORD_BY_ID } from '../shared'
+
+export const GET_THIRDPARTYTOKENS = async () => await GET_RECORDS(DATABASE_TABLES.THIRDPARTYTOKENS)
+export const GET_THIRDPARTYTOKEN_BY_ID = async (id: string) => await GET_RECORD_BY_ID(DATABASE_TABLES.THIRDPARTYTOKENS, id)
+export const CREATE_THIRDPARTYTOKEN_BY_ID = async (user: ThirdPartyToken) => await CREATE_RECORD(DATABASE_TABLES.THIRDPARTYTOKENS, user)
+export const EDIT_THIRDPARTYTOKEN_BY_ID = async (id: string, user: ThirdPartyToken) => await UPDATE_RECORD_BY_ID(DATABASE_TABLES.THIRDPARTYTOKENS, id, user)
+export const DELETE_THIRDPARTYTOKEN_BY_ID = async (id: string) => await DELETE_RECORD_BY_ID(DATABASE_TABLES.THIRDPARTYTOKENS, id)
