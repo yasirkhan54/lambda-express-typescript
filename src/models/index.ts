@@ -1,4 +1,4 @@
-export { Lead } from './Lead'
+export { Lead, LeadModel } from './Lead'
 export { Address } from './Address'
 export { Consent } from './Consent'
 export { LeadStatus } from './LeadStatus'

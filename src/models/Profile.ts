@@ -1,3 +1,7 @@
+import { Address } from "./Address";
+import { ProfileCriteria } from "./ProfileCriteria";
+import { Qualification } from "./Qualification";
+
 export interface Profile {
   profile_id: number;
   lead_id: number;
@@ -7,4 +11,11 @@ export interface Profile {
   phone_primary: string;
   phone_secondary: string;
   email: string;
+}
+
+export interface ProfileModel {
+  profile: Profile;
+  address: Address;
+  profile_criteria: ProfileCriteria;
+  qualification: Qualification;
 }
