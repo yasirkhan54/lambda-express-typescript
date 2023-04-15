@@ -13,11 +13,54 @@ export const LIST_OF_LEAD = async () => {
 }
 
 export const GET_LEAD_BY_ID = async (id: string) => {
-  const leads = await SQL<Lead[]>`SELECT * FROM ${SQL(DATABASE_TABLES.LEADS)} where lead_id = ${id}` // Get lead by id
-  if (leads.length === 0) {
-    throw createError[404](ERROR_MESSAGE.RECORD_NOT_FOUND)
+  const [LEAD, LEAD_STATUS, SESSION, CONSENT, THIRD_PARTY_TOKENS, UTMS, PROFILE, ADDRESSES, PROFILE_CRITERIA, QUALIFICATIONS] = await SQL.begin(async SQL => {
+
+    // lead creation
+    const [LEAD] = await SQL`SELECT * FROM ${SQL(DATABASE_TABLES.LEADS)} WHERE lead_id = ${id}`;
+
+    // lead status creation
+    const [LEAD_STATUS] = await SQL`SELECT * FROM ${SQL(DATABASE_TABLES.LEAD_STATUS)} WHERE lead_id = ${id}`;
+
+    // session creation
+    const [SESSION] = await SQL`SELECT * FROM ${SQL(DATABASE_TABLES.SESSIONS)} WHERE lead_id = ${id}`;
+
+    // consent creation
+    const [CONSENT] = await SQL`SELECT * FROM ${SQL(DATABASE_TABLES.CONSENTS)} WHERE lead_id = ${id}`;
+
+    // third party token creation
+    const [THIRD_PARTY_TOKENS] = await SQL`SELECT * FROM ${SQL(DATABASE_TABLES.THIRD_PARTY_TOKENS)} WHERE lead_id = ${id}`;
+
+    // utm creation
+    const [UTMS] = await SQL`SELECT * FROM ${SQL(DATABASE_TABLES.UTMS)} WHERE lead_id = ${id}`;
+
+    // profile creation
+    const [PROFILE] = await SQL`SELECT * FROM ${SQL(DATABASE_TABLES.PROFILES)} WHERE lead_id = ${id}`;
+
+    // address creation
+    const [ADDRESSES] = await SQL`SELECT * FROM ${SQL(DATABASE_TABLES.ADDRESSES)} WHERE profile_id = ${PROFILE.profile_id}`;
+
+    // profile criteria creation
+    const [PROFILE_CRITERIA] = await SQL`SELECT * FROM ${SQL(DATABASE_TABLES.PROFILE_CRITERIA)} WHERE lead_id = ${id}`;
+
+    // qualification creation
+    const [QUALIFICATIONS] = await SQL`SELECT * FROM ${SQL(DATABASE_TABLES.QUALIFICATIONS)} WHERE lead_id = ${id} AND profile_id = ${PROFILE.profile_id}`
+
+    return [LEAD, LEAD_STATUS, SESSION, CONSENT, THIRD_PARTY_TOKENS, UTMS, PROFILE, ADDRESSES, PROFILE_CRITERIA, QUALIFICATIONS]
+  })
+
+  //  response data
+  return {
+    lead: LEAD,
+    leadStatus: LEAD_STATUS,
+    session: SESSION,
+    consent: CONSENT,
+    thirdPartyToken: THIRD_PARTY_TOKENS,
+    utm: UTMS,
+    profile: PROFILE,
+    address: ADDRESSES,
+    profileCriteria: PROFILE_CRITERIA,
+    qualification: QUALIFICATIONS,
   }
-  return leads.at(0)
 }
 
 export const INSERT_LEAD = async (leadModel: LeadModel) => {
