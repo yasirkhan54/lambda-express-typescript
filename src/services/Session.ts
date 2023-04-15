@@ -14,7 +14,7 @@ export const GET_SESSION_BY_ID = async (id: string) => {
   return sessions.at(0)
 }
 export const CREATE_SESSION = async (session: Session) => {
-  const sessions = await SQL<Session[]>`INSERT INTO ${SQL(DATABASE_TABLES.SESSIONS)} VALUES ${SQL(session)} returning *` // Create session
+  const sessions = await SQL<Session[]>`INSERT INTO ${SQL(DATABASE_TABLES.SESSIONS)} (lead_id, ip, web_url, traffic_brand_name, traffic_source_detail, traffic_source_type, web_access_key, web_session_id, landing_page, device_type) VALUES ${SQL(session)} returning *` // Create session
   if (sessions.length === 0) {
     throw createError[500](ERROR_MESSAGE.RECORD_NOT_CREATED)
   }

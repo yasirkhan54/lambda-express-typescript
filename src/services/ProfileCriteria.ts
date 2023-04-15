@@ -14,7 +14,7 @@ export const GET_PROFILECRITERIA_BY_ID = async (id: string) => {
   return profileCriteria.at(0)
 }
 export const CREATE_PROFILECRITERIA = async (profileCriteriaValues: ProfileCriteria) => {
-  const profileCriteria = await SQL<ProfileCriteria[]>`INSERT INTO ${SQL(DATABASE_TABLES.PROFILE_CRITERIA)} VALUES ${SQL(profileCriteriaValues)} returning *` // Create profileCriteria
+  const profileCriteria = await SQL<ProfileCriteria[]>`INSERT INTO ${SQL(DATABASE_TABLES.PROFILE_CRITERIA)} (lead_id, age, gender, is_us_citizen, is_us_military, military_status, military_branch, high_school_graduation_year) VALUES ${SQL(profileCriteriaValues)} returning *` // Create profileCriteria
   if (profileCriteria.length === 0) {
     throw createError[500](ERROR_MESSAGE.RECORD_NOT_CREATED)
   }

@@ -4,6 +4,7 @@ import {
     LIST_OF_LEAD,
     GET_LEAD_BY_ID,
     CREATE_LEAD,
+    INSERT_LEAD,
     EDIT_LEAD_BY_ID,
     DELETE_LEAD_BY_ID
 } from '../services';
@@ -31,6 +32,16 @@ router.get('/:id', async (req: Request, res: Response, next: NextFunction) => {
 })
 
 router.post('/', async (req: Request, res: Response, next: NextFunction) => {
+    try {
+        const lead = await INSERT_LEAD(req.body);
+        res.send(lead);
+    } catch (error) {
+        // handle the error here
+        next(error);
+    }
+})
+
+router.post('/create-lead', async (req: Request, res: Response, next: NextFunction) => {
     try {
         const lead = await CREATE_LEAD(req.body);
         res.send(lead);

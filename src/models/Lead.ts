@@ -1,6 +1,9 @@
+import { Address } from "./Address";
 import { Consent } from "./Consent";
 import { LeadStatus } from "./LeadStatus";
-import { ProfileModel } from "./Profile";
+import { Profile } from "./Profile";
+import { ProfileCriteria } from "./ProfileCriteria";
+import { Qualification } from "./Qualification";
 import { Session } from "./Session";
 import { ThirdPartyToken } from "./ThirdPartyToken";
 import { UTM } from "./UTM";
@@ -16,10 +19,13 @@ export interface Lead {
 
 export interface LeadModel {
   lead: Lead;
-  lead_status: LeadStatus;
+  leadStatus: LeadStatus;
   session: Session;
   consent: Consent;
-  third_party_token: ThirdPartyToken;
+  thirdPartyToken: ThirdPartyToken;
   utm: UTM;
-  profileModel: ProfileModel;
+  profile: Profile;
+  address: Address;
+  profileCriteria: ProfileCriteria;
+  qualification: Qualification;
 }

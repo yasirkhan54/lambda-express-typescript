@@ -14,7 +14,7 @@ export const GET_CONSENT_BY_ID = async (id: string) => {
   return consents.at(0)
 }
 export const CREATE_CONSENT = async (consent: Consent) => {
-  const consents = await SQL<Consent[]>`INSERT INTO ${SQL(DATABASE_TABLES.CONSENTS)} VALUES ${SQL(consent)} returning *` // Create consent
+  const consents = await SQL<Consent[]>`INSERT INTO ${SQL(DATABASE_TABLES.CONSENTS)} (lead_id, tcpa_timestamp_traffic, tcpa_timestamp_marketing, tcpa_text_traffic, tpca_timestamp_client) VALUES ${SQL(consent)} returning *` // Create consent
   if (consents.length === 0) {
     throw createError[500](ERROR_MESSAGE.RECORD_NOT_CREATED)
   }

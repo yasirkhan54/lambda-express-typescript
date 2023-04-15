@@ -16,6 +16,6 @@ export interface Profile {
 export interface ProfileModel {
   profile: Profile;
   address: Address;
-  profile_criteria: ProfileCriteria;
+  profileCriteria: ProfileCriteria;
   qualification: Qualification;
 }

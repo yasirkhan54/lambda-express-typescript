@@ -14,7 +14,7 @@ export const GET_LEADSTATUS_BY_ID = async (id: string) => {
   return leadStatuses.at(0)
 }
 export const CREATE_LEADSTATUS = async (leadStatus: LeadStatus) => {
-  const leadStatuses = await SQL<LeadStatus[]>`INSERT INTO ${SQL(DATABASE_TABLES.LEAD_STATUS)} VALUES ${SQL(leadStatus)} returning *` // Create lead status
+  const leadStatuses = await SQL<LeadStatus[]>`INSERT INTO ${SQL(DATABASE_TABLES.LEAD_STATUS)} (lead_id, api_response_json, original_status, current_status, status_update_timestamp, reject_reason, type) VALUES ${SQL(leadStatus)} returning *` // Create lead status
   if (leadStatuses.length === 0) {
     throw createError[500](ERROR_MESSAGE.RECORD_NOT_CREATED)
   }

@@ -14,23 +14,23 @@ export const GET_PROFILE_BY_ID = async (id: string) => {
   return profiles.at(0)
 }
 export const CREATE_PROFILE = async (profile: Profile) => {
-  const profiles = await SQL<Profile[]>`INSERT INTO ${SQL(DATABASE_TABLES.PROFILES)} VALUES ${SQL(profile)} returning *` // Create profile
+  const profiles = await SQL<Profile[]>`INSERT INTO ${SQL(DATABASE_TABLES.PROFILES)} (lead_id, salutation, first_name, last_name, phone_primary, phone_secondary, email) VALUES ${SQL(profile)} returning *` // Create profile
   if (profiles.length === 0) {
     throw createError[500](ERROR_MESSAGE.RECORD_NOT_CREATED)
   }
-  return profiles
+  return profiles.at(0)
 }
 export const EDIT_PROFILE_BY_ID = async (id: string, profile: Profile) => {
   const profiles = await SQL<Profile[]>`UPDATE ${SQL(DATABASE_TABLES.PROFILES)} SET ${SQL(profile)} where profile_id = ${id} returning *` // Update profile by id
   if (profiles.length === 0) {
     throw createError[404](ERROR_MESSAGE.RECORD_NOT_UPDATED)
   }
-  return profiles
+  return profiles.at(0)
 }
 export const DELETE_PROFILE_BY_ID = async (id: string) => {
   const profiles = await SQL<Profile[]>`DELETE FROM ${SQL(DATABASE_TABLES.PROFILES)} where profile_id = ${id} returning *` // Delete profile by id
   if (profiles.length === 0) {
     throw createError[404](ERROR_MESSAGE.RECORD_NOT_DELETE)
   }
-  return profiles
+  return profiles.at(0)
 }

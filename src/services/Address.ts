@@ -16,11 +16,11 @@ export const GET_ADDRESS_BY_ID = async (id: string) => {
 }
 
 export const CREATE_ADDRESS = async (address: Address) => {
-  const addresses = await SQL<Address[]>`INSERT INTO ${SQL(DATABASE_TABLES.ADDRESSES)} VALUES ${SQL(address)} returning *` // Create address
+  const addresses = await SQL<Address[]>`INSERT INTO ${SQL(DATABASE_TABLES.ADDRESSES)} (profile_id, address_line_one, address_line_two, city, state, zip_code) VALUES ${SQL(address)} returning *` // Create address
   if (addresses.length === 0) {
     throw createError[500](ERROR_MESSAGE.RECORD_NOT_CREATED)
   }
-  return addresses
+  return addresses.at(0)
 }
 
 export const EDIT_ADDRESS_BY_ID = async (id: string, address: Address) => {
@@ -28,7 +28,7 @@ export const EDIT_ADDRESS_BY_ID = async (id: string, address: Address) => {
   if (addresses.length === 0) {
     throw createError[404](ERROR_MESSAGE.RECORD_NOT_UPDATED)
   }
-  return addresses
+  return addresses.at(0)
 }
 
 export const DELETE_ADDRESS_BY_ID = async (id: string) => {
@@ -36,5 +36,5 @@ export const DELETE_ADDRESS_BY_ID = async (id: string) => {
   if (addresses.length === 0) {
     throw createError[404](ERROR_MESSAGE.RECORD_NOT_DELETE)
   }
-  return addresses
+  return addresses.at(0)
 }
