@@ -1,5 +1,6 @@
 import express, { Application, Request, Response, NextFunction } from 'express'
 import createHttpError, { HttpError } from 'http-errors';
+import awsServerlessExpress from 'aws-serverless-express'
 
 import { ERROR_MESSAGE } from './shared';
 import { MODULES_LIST } from './modules';
@@ -25,5 +26,9 @@ app.use(function (err: HttpError, req: Request, res: Response, next: NextFunctio
     });
 });
 
-const PORT = process.env.PORT || 3000
-app.listen(PORT, () => console.log(`Server up at port ${PORT}.`))
+
+// const PORT = process.env.PORT || 3000
+// app.listen(PORT, () => console.log(`Server up at port ${PORT}.`))
+
+const server = awsServerlessExpress.createServer(app)
+export const handler = (event: any, context: any) => awsServerlessExpress.proxy(server, event, context)
