@@ -14,7 +14,7 @@ export const GET_QUALIFICATION_BY_ID = async (id: string) => {
   return qualifications.at(0)
 }
 export const CREATE_QUALIFICATION = async (qualification: Qualification) => {
-  const qualifications = await SQL<Qualification[]>`INSERT INTO ${SQL(DATABASE_TABLES.QUALIFICATIONS)} (profile_id, lead_id, enrollment_timeline, current_edu_level, preferred_edu_level, learning_preference, is_graduated_in_us, computer_internet_access, level_of_interest, time_of_day, previously_contacted) VALUES ${SQL(qualification)} returning *` // Create qualification
+  const qualifications = await SQL`INSERT INTO ${SQL(DATABASE_TABLES.QUALIFICATIONS)} ${SQL(qualification, 'profile_id', 'lead_id', 'enrollment_timeline', 'current_edu_level', 'preferred_edu_level', 'learning_preference', 'is_graduated_in_us', 'computer_internet_access', 'level_of_interest', 'time_of_day', 'previously_contacted')} returning *` // Create qualification
   if (qualifications.length === 0) {
     throw createError[500](ERROR_MESSAGE.RECORD_NOT_CREATED)
   }

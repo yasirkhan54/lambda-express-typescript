@@ -14,7 +14,7 @@ export const GET_PROFILE_BY_ID = async (id: string) => {
   return profiles.at(0)
 }
 export const CREATE_PROFILE = async (profile: Profile) => {
-  const profiles = await SQL<Profile[]>`INSERT INTO ${SQL(DATABASE_TABLES.PROFILES)} (lead_id, salutation, first_name, last_name, phone_primary, phone_secondary, email) VALUES ${SQL(profile)} returning *` // Create profile
+  const profiles = await SQL`INSERT INTO ${SQL(DATABASE_TABLES.PROFILES)} ${SQL(profile, 'lead_id', 'salutation', 'first_name', 'last_name', 'phone_primary', 'phone_secondary', 'email')} returning *` // Create profile
   if (profiles.length === 0) {
     throw createError[500](ERROR_MESSAGE.RECORD_NOT_CREATED)
   }

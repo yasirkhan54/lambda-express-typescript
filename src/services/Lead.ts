@@ -68,31 +68,31 @@ export const INSERT_LEAD = async (leadModel: LeadModel) => {
   const [LEAD, LEAD_STATUS, SESSION, CONSENT, THIRD_PARTY_TOKENS, UTMS, PROFILE, ADDRESSES, PROFILE_CRITERIA, QUALIFICATIONS] = await SQL.begin(async SQL => {
 
     // lead creation
-    const [LEAD] = await SQL`INSERT INTO ${SQL(DATABASE_TABLES.LEADS)} ${SQL(leadModel.lead, 'external_lead_id', 'traffic_source', 'lead_cost', 'total_revenue', 'is_test_lead')} returning *`;
+    const [LEAD] = await SQL`INSERT INTO ${SQL(DATABASE_TABLES.LEADS)} ${SQL(leadModel.lead, 'external_lead_id', 'traffic_source', 'lead_cost', 'total_revenue', 'is_test_lead')} returning *`
 
     // lead status creation
     leadModel.leadStatus.lead_id = LEAD.lead_id;
-    const [LEAD_STATUS] = await SQL`INSERT INTO ${SQL(DATABASE_TABLES.LEAD_STATUS)} ${SQL(leadModel.leadStatus, 'lead_id', 'api_response_json', 'original_status', 'current_status', 'status_update_timestamp', 'reject_reason')} returning *`;
+    const [LEAD_STATUS] = await SQL`INSERT INTO ${SQL(DATABASE_TABLES.LEAD_STATUS)} ${SQL(leadModel.leadStatus, 'lead_id', 'api_response_json', 'original_status', 'current_status', 'status_update_timestamp', 'reject_reason')} returning *`
 
     // session creation
     leadModel.session.lead_id = LEAD.lead_id;
-    const [SESSION] = await SQL`INSERT INTO ${SQL(DATABASE_TABLES.SESSIONS)} ${SQL(leadModel.session, 'lead_id', 'ip', 'web_url', 'traffic_brand_name', 'traffic_source_detail', 'traffic_source_type', 'web_access_key', 'web_session_id', 'landing_page', 'device_type')} returning *`;
+    const [SESSION] = await SQL`INSERT INTO ${SQL(DATABASE_TABLES.SESSIONS)} ${SQL(leadModel.session, 'lead_id', 'ip', 'web_url', 'traffic_brand_name', 'traffic_source_detail', 'traffic_source_type', 'web_access_key', 'web_session_id', 'landing_page', 'device_type')} returning *`
 
     // consent creation
     leadModel.consent.lead_id = LEAD.lead_id;
-    const [CONSENT] = await SQL`INSERT INTO ${SQL(DATABASE_TABLES.CONSENTS)} ${SQL(leadModel.consent, 'lead_id', 'tcpa_timestamp_traffic', 'tcpa_timestamp_marketing', 'tcpa_text_traffic', 'tcpa_timestamp_client')} returning *`;
+    const [CONSENT] = await SQL`INSERT INTO ${SQL(DATABASE_TABLES.CONSENTS)} ${SQL(leadModel.consent, 'lead_id', 'tcpa_timestamp_traffic', 'tcpa_timestamp_marketing', 'tcpa_text_traffic', 'tcpa_timestamp_client')} returning *`
 
     // third party token creation
     leadModel.thirdPartyToken.lead_id = LEAD.lead_id;
-    const [THIRD_PARTY_TOKENS] = await SQL`INSERT INTO ${SQL(DATABASE_TABLES.THIRD_PARTY_TOKENS)} ${SQL(leadModel.thirdPartyToken, 'lead_id', 'traffic_jornaya_lead_id', 'traffic_trusted_form_url', 'traffic_trustedform_token')} returning *`;
+    const [THIRD_PARTY_TOKENS] = await SQL`INSERT INTO ${SQL(DATABASE_TABLES.THIRD_PARTY_TOKENS)} ${SQL(leadModel.thirdPartyToken, 'lead_id', 'traffic_jornaya_lead_id', 'traffic_trusted_form_url', 'traffic_trustedform_token')} returning *`
 
     // utm creation
     leadModel.utm.lead_id = LEAD.lead_id;
-    const [UTMS] = await SQL`INSERT INTO ${SQL(DATABASE_TABLES.UTMS)} ${SQL(leadModel.utm, 'lead_id', 'source', 'medium', 'campaign', 'content', 'term', 'supplier_id', 'sub_id', 'ad_id')} returning *`;
+    const [UTMS] = await SQL`INSERT INTO ${SQL(DATABASE_TABLES.UTMS)} ${SQL(leadModel.utm, 'lead_id', 'source', 'medium', 'campaign', 'content', 'term', 'supplier_id', 'sub_id', 'ad_id')} returning *`
 
     // profile creation
     leadModel.profile.lead_id = LEAD.lead_id;
-    const [PROFILE] = await SQL`INSERT INTO ${SQL(DATABASE_TABLES.PROFILES)} ${SQL(leadModel.profile, 'lead_id', 'salutation', 'first_name', 'last_name', 'phone_primary', 'phone_secondary', 'email')} returning *`;
+    const [PROFILE] = await SQL`INSERT INTO ${SQL(DATABASE_TABLES.PROFILES)} ${SQL(leadModel.profile, 'lead_id', 'salutation', 'first_name', 'last_name', 'phone_primary', 'phone_secondary', 'email')} returning *`
 
     // address creation
     leadModel.address.profile_id = PROFILE.profile_id;
@@ -126,7 +126,7 @@ export const INSERT_LEAD = async (leadModel: LeadModel) => {
 }
 
 export const CREATE_LEAD = async (lead: Lead) => {
-  const leads = await SQL<Lead[]>`INSERT INTO ${SQL(DATABASE_TABLES.LEADS)} (external_lead_id, traffic_source, lead_cost, total_revenue, is_test_lead) VALUES ${SQL(lead)} returning *` // Create lead
+  const leads = await SQL`INSERT INTO ${SQL(DATABASE_TABLES.LEADS)} ${SQL(lead, 'external_lead_id', 'traffic_source', 'lead_cost', 'total_revenue', 'is_test_lead')} returning *` // Create lead
   if (leads.length === 0) {
     throw createError[500](ERROR_MESSAGE.RECORD_NOT_CREATED)
   }

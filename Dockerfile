@@ -1,11 +1,11 @@
 FROM public.ecr.aws/lambda/nodejs:18
 
-WORKDIR /application/leads_backend
-
-COPY ["package.json", "package-lock.json*", "npm-shrinkwrap.json*", "./"]
-
-RUN npm install 
+WORKDIR /application
 
 COPY . .
 
-CMD [ "/application/leads_backend/index.handler" ]
+RUN npm install 
+
+RUN npm run build
+
+CMD [ "/application/dist/index.handler" ]

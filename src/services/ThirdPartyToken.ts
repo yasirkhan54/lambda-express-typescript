@@ -14,7 +14,7 @@ export const GET_THIRDPARTYTOKEN_BY_ID = async (id: string) => {
   return thirdPartyTokens.at(0)
 }
 export const CREATE_THIRDPARTYTOKEN = async (thirdPartyTokenValue: ThirdPartyToken) => {
-  const thirdPartyToken = await SQL<ThirdPartyToken[]>`INSERT INTO ${SQL(DATABASE_TABLES.THIRD_PARTY_TOKENS)} (lead_id, traffic_jornaya_lead_id, traffic_trusted_form_url, traffic_trustedform_token) VALUES ${SQL(thirdPartyTokenValue)} returning *` // Create thirdPartyToken
+  const thirdPartyToken = await SQL`INSERT INTO ${SQL(DATABASE_TABLES.THIRD_PARTY_TOKENS)} ${SQL(thirdPartyTokenValue, 'lead_id', 'traffic_jornaya_lead_id', 'traffic_trusted_form_url', 'traffic_trustedform_token')} returning *` // Create thirdPartyToken
   if (thirdPartyToken.length === 0) {
     throw createError[500](ERROR_MESSAGE.RECORD_NOT_CREATED)
   }

@@ -1,6 +1,6 @@
 import express, { Application, Request, Response, NextFunction } from 'express'
 import createHttpError, { HttpError } from 'http-errors';
-import awsServerlessExpress from 'aws-serverless-express'
+import serverless from 'serverless-http';
 
 import { ERROR_MESSAGE } from './shared';
 import { MODULES_LIST } from './modules';
@@ -9,6 +9,10 @@ const app: Application = express()
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
+
+app.get('/health', (req: Request, res: Response) => {
+    res.send({ message: 'Server is up and running.' })
+})
 
 MODULES_LIST.forEach((module) => app.use(module.PATH, module.ROUTER))
 
@@ -26,9 +30,7 @@ app.use(function (err: HttpError, req: Request, res: Response, next: NextFunctio
     });
 });
 
-
 // const PORT = process.env.PORT || 3000
 // app.listen(PORT, () => console.log(`Server up at port ${PORT}.`))
 
-const server = awsServerlessExpress.createServer(app)
-export const handler = (event: any, context: any) => awsServerlessExpress.proxy(server, event, context)
+module.exports.handler = serverless(app);

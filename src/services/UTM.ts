@@ -14,7 +14,7 @@ export const GET_UTM_BY_ID = async (id: string) => {
   return utms.at(0)
 }
 export const CREATE_UTM = async (utm: UTM) => {
-  const utms = await SQL<UTM[]>`INSERT INTO ${SQL(DATABASE_TABLES.UTMS)} (lead_id, source, medium, campaign, content, term, supplier_id, sub_id, ad_id) VALUES ${SQL(utm)} returning *` // Create utm
+  const utms = await `INSERT INTO ${SQL(DATABASE_TABLES.UTMS)} ${SQL(utm, 'lead_id', 'source', 'medium', 'campaign', 'content', 'term', 'supplier_id', 'sub_id', 'ad_id')} returning *` // Create utm
   if (utms.length === 0) {
     throw createError[500](ERROR_MESSAGE.RECORD_NOT_CREATED)
   }
