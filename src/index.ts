@@ -1,6 +1,8 @@
 import express, { Application, Request, Response, NextFunction } from 'express'
 import createHttpError, { HttpError } from 'http-errors';
 import serverless from 'serverless-http';
+import dotenv from 'dotenv';
+dotenv.config();
 
 import { ERROR_MESSAGE } from './shared';
 import { MODULES_LIST } from './modules';
@@ -30,7 +32,9 @@ app.use(function (err: HttpError, req: Request, res: Response, next: NextFunctio
     });
 });
 
-// const PORT = process.env.PORT || 3000
-// app.listen(PORT, () => console.log(`Server up at port ${PORT}.`))
-
-module.exports.handler = serverless(app);
+if (process.env.NODE_ENV !== 'production') {
+    const PORT = process.env.PORT || 3000
+    app.listen(PORT, () => console.log(`Server up at port ${PORT}.`))
+} else {
+    module.exports.handler = serverless(app);
+}
