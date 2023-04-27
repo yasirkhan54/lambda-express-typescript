@@ -1,6 +1,8 @@
 import express, { Application, Request, Response, NextFunction } from 'express'
 import createHttpError, { HttpError } from 'http-errors';
+import { auth } from 'express-oauth2-jwt-bearer';
 import serverless from 'serverless-http';
+
 import dotenv from 'dotenv';
 dotenv.config();
 
@@ -15,6 +17,12 @@ app.use(express.urlencoded({ extended: false }));
 app.get('/health', (req: Request, res: Response) => {
     res.send({ message: 'Server is up and running.' })
 })
+
+app.use(auth({
+    issuerBaseURL: process.env.ISSUER,
+    audience: process.env.AUDIENCE,
+    tokenSigningAlg: process.env.TOKEN_SIGNING_ALG
+}));
 
 MODULES_LIST.forEach((module) => app.use(module.PATH, module.ROUTER))
 
