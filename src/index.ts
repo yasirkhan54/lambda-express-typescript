@@ -40,7 +40,7 @@ app.use(function (err: HttpError, req: Request, res: Response, next: NextFunctio
     });
 });
 
-if (process.env.NODE_ENV !== 'production') {
+if (process.env.NODE_ENV === 'development') {
     const PORT = process.env.PORT || 3000
     app.listen(PORT, () => console.log(`Server up at port ${PORT}.`))
 } else {
