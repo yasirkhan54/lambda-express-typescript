@@ -7,4 +7,5 @@ export const ERROR_MESSAGE = {
     DATABASE_ERROR: 'An error occurred during the execution of the query.',
     INVALID_RESOURCE_URL: 'API path is invalid, please check the documentation for further details.',
     INVALID_ID: 'The ID provided is invalid, please check the documentation for further details.',
+    INTERNAL_SERVER_ERROR: 'An error occurred while processing the request.',
 }
