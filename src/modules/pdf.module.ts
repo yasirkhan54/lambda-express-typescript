@@ -7,15 +7,8 @@ const router: Router = Router()
 
 // Function to generate PDF from HTML using Puppeteer
 async function generatePdfFromHtml(htmlContent) {
-	console.log('Generating PDF...');
-	console.log('htmlContent: ', htmlContent);
-	console.log('process.env.CHROME_BIN: ', process.env.CHROME_BIN);
-	console.log('/usr/bin/google-chrome-stable');
-
-	// test comment
-
-	console.log(process.env.GOOGLE_CHROME_SHIM)
-
+	console.log('generating pdf from html');
+	
 	const browser = await puppeteer.launch({
 		headless: false,
 		executablePath: process.env.GOOGLE_CHROME_BIN,
