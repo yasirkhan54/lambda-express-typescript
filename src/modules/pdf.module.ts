@@ -1,46 +1,34 @@
 import { Router, Request, Response, NextFunction } from 'express'
 import createError from 'http-errors'
 import { ERROR_MESSAGE } from '../shared'
-import puppeteer from 'puppeteer'
+import pdf from 'html-pdf';
 
 const router: Router = Router()
-
-// Function to generate PDF from HTML using Puppeteer
-async function generatePdfFromHtml(htmlContent) {
-	console.log('generating pdf from html');
-	
-	const browser = await puppeteer.launch({
-		headless: false,
-		executablePath: process.env.GOOGLE_CHROME_BIN,
-	});
-	console.log('browser launched');
-
-	const page = await browser.newPage();
-	console.log('page created');
-
-	await page.setContent(htmlContent);
-	console.log('page content set');
-
-	const pdfBuffer = await page.pdf();
-	console.log('pdf generated');
-
-	await browser.close();
-	console.log('browser closed');
-
-	return pdfBuffer;
-}
 
 router.post('/html-to-pdf', async (req: Request, res: Response, next: NextFunction) => {
 	const { html } = req.body;
 
-	try {
-		const pdfBuffer = await generatePdfFromHtml(html);
-		res.setHeader('Content-Type', 'application/pdf');
-		res.setHeader('Content-Disposition', 'attachment; filename=generated_pdf.pdf');
-		res.send(pdfBuffer);
-	} catch (err) {
-		res.status(500).json({ error: `PDF generation failed: ${err.message}` });
-	}
+  if (!html) {
+    return res.status(400).json({ error: 'HTML content not provided in the request body.' });
+  }
+
+  // Configuration options for the PDF
+  const pdfOptions = { format: 'Letter' };
+
+  // Convert HTML to PDF
+  pdf.create(html, pdfOptions).toBuffer((err, buffer) => {
+    if (err) {
+      console.error('Error converting HTML to PDF:', err);
+      return res.status(500).json({ error: 'An error occurred while converting HTML to PDF.' });
+    }
+
+    // Set response headers for the PDF download
+    res.setHeader('Content-Type', 'application/pdf');
+    res.setHeader('Content-Disposition', 'attachment; filename="converted.pdf"');
+
+    // Send the PDF buffer in the response
+    res.send(buffer);
+  });
 });
 
 export const PDF_PATH = '/pdf';
