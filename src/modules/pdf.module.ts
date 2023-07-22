@@ -14,7 +14,7 @@ async function generatePdfFromHtml(htmlContent) {
 
 	// test comment
 
-	console.log(process.env.GOOGLE_CHROME_BIN)
+	console.log(process.env.GOOGLE_CHROME_SHIM)
 
 	const browser = await puppeteer.launch({
 		headless: false,
