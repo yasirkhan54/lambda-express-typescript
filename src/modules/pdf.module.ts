@@ -10,8 +10,8 @@ async function generatePdfFromHtml(htmlContent) {
 	console.log('generating pdf from html');
 	
 	const browser = await puppeteer.launch({
-		headless: false,
-		executablePath: process.env.GOOGLE_CHROME_BIN,
+		args: ['--no-sandbox', '--disable-setuid-sandbox'],
+		headless: true
 	});
 	console.log('browser launched');
 
