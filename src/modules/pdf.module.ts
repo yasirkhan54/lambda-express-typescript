@@ -1,15 +1,16 @@
 import { Router, Request, Response, NextFunction } from 'express'
 import createError from 'http-errors'
 import { ERROR_MESSAGE } from '../shared'
-import puppeteer from 'puppeteer'
+import puppeteer from 'puppeteer-core'
 
 const router: Router = Router()
 
 // Function to generate PDF from HTML using Puppeteer
 async function generatePdfFromHtml(htmlContent) {
 	console.log('generating pdf from html');
-	
+
 	const browser = await puppeteer.launch({
+		executablePath: process.env.GOOGLE_CHROME_BIN,
 		args: ['--no-sandbox', '--disable-setuid-sandbox'],
 		headless: true
 	});
