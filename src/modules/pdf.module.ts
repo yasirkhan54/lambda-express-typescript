@@ -12,6 +12,8 @@ async function generatePdfFromHtml(htmlContent) {
 	console.log('process.env.CHROME_BIN: ', process.env.CHROME_BIN);
 	console.log('/usr/bin/google-chrome-stable');
 
+	// test comment
+
 	console.log(process.env.GOOGLE_CHROME_BIN)
 
 	const browser = await puppeteer.launch({
