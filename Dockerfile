@@ -10,8 +10,6 @@ RUN yum update -y && yum install -y wget gnupg
 # # Set Chrome binary path
 # ENV CHROME_BIN=/usr/bin/google-chrome-stable
 
-RUN apt-get update && apt-get install -y libnss3
-
 WORKDIR /usr/application
 
 COPY . .
