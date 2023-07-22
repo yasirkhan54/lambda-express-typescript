@@ -9,6 +9,8 @@ const router: Router = Router()
 async function generatePdfFromHtml(htmlContent) {
 	console.log('Generating PDF...');					
 	console.log('htmlContent: ', htmlContent);
+	console.log('process.env.CHROME_BIN: ', process.env.CHROME_BIN);
+	console.log('/usr/bin/google-chrome-stable');
 
 	const browser = await puppeteer.launch({ 
 		headless: "new",
