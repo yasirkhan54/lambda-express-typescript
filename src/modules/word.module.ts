@@ -50,5 +50,5 @@ router.post('/html-to-word', async (req: Request, res: Response, next: NextFunct
 	}
 });
 
-export const PDF_PATH = '/word';
-export const PDF_ROUTER = router;
+export const WORD_PATH = '/word';
+export const WORD_ROUTER = router;
