@@ -12,10 +12,7 @@ async function generatePdfFromHtml(htmlContent) {
 	console.log('process.env.CHROME_BIN: ', process.env.CHROME_BIN);
 	console.log('/usr/bin/google-chrome-stable');
 
-	const browser = await puppeteer.launch({ 
-		headless: "new",
-		executablePath: '/usr/bin/google-chrome-stable' 
-	});
+	const browser = await puppeteer.launch();
 	console.log('browser launched');
 
 	const page = await browser.newPage();
