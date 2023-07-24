@@ -22,7 +22,7 @@ const generatePNG = async (data) => {
 			<title>Generated PNG</title>
 		</head>
 		<body>
-			<h1>${data.title}</h1>
+			<h1 style="color: red">${data.title}</h1>
 			<p>${data.description}</p>
 			<!-- Add more placeholders as needed -->
 		</body>
